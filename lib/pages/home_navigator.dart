@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
 import 'package:get/get_core/src/get_main.dart';
 import 'package:ui_slicing_assignment/Controller/NavBarController.dart';
@@ -14,65 +15,67 @@ class home extends StatelessWidget {
   Widget build(BuildContext context) {
     final NavBarController navBarController = Get.find();
     final List<Widget> indexNavigator = [HomeMenu(), SearchMenu(), LibraryMenu()];
+    final List<String> listIcon = ['assets/home2.svg','assets/search2.svg','assets/library.svg'];
 
     return Obx(() {
       return Scaffold(
         backgroundColor: Colors.black,
         body: indexNavigator[navBarController.selectedIndex.value],
-        bottomNavigationBar: Container(
-          margin: EdgeInsets.all(20),
-          height: 86,
-          decoration: BoxDecoration(
-            color: Colors.black,
-            boxShadow: [
-              BoxShadow(
-                color: Colors.white.withOpacity(.15),
-                blurRadius: 30,
-                offset: Offset(0, 10),
-              ),
-            ],
-            borderRadius: BorderRadius.circular(20),
-          ),
-          child: ListView.builder(
-            itemCount: indexNavigator.length,
-            scrollDirection: Axis.horizontal,
-            padding: EdgeInsets.symmetric(horizontal: 20),
-            itemBuilder: (context, index) => InkWell(
-              onTap: () => navBarController.selectedIndex(index),
-              splashColor: Colors.transparent,
-              highlightColor: Colors.transparent,
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  AnimatedContainer(
-                    duration: Duration(milliseconds: 1500),
-                    curve: Curves.fastLinearToSlowEaseIn,
-                    margin: EdgeInsets.only(
-                      bottom: index == navBarController.selectedIndex.value
-                          ? 0
-                          : 10,
-                      right: 10,
-                      left: 10,
-                    ),
-                    width: 60,
-                    height:
-                        index == navBarController.selectedIndex.value ? 50 : 0,
-                    decoration: BoxDecoration(
-                      color: Colors.green,
-                      borderRadius: BorderRadius.vertical(
-                        bottom: Radius.circular(10),
+        bottomNavigationBar: ConstrainedBox(
+          constraints: BoxConstraints(maxWidth: double.infinity),
+          child: Container(
+            height: 80,
+            decoration: BoxDecoration(
+              color: Theme.of(context).colorScheme.primary,
+              borderRadius: BorderRadius.circular(20),
+            ),
+            child: Expanded(
+              child: Center(
+                child: ListView.builder(
+                  shrinkWrap: true,
+                  itemCount: indexNavigator.length,
+                  scrollDirection: Axis.horizontal,
+                  padding: EdgeInsets.symmetric(horizontal: 20),
+                  itemBuilder: (context, index) => InkWell(
+                    onTap: () => navBarController.selectedIndex(index),
+                    splashColor: Colors.transparent,
+                    highlightColor: Colors.transparent,
+                    child: Expanded(
+                      child: Column(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          AnimatedContainer(
+                            duration: Duration(milliseconds: 1500),
+                            curve: Curves.fastLinearToSlowEaseIn,
+                            margin: EdgeInsets.only(
+                              bottom: index == navBarController.selectedIndex.value
+                                  ? 0
+                                  : 10,
+                              right: 10,
+                              left: 10,
+                            ),
+                            width: 60,
+                            height:
+                                index == navBarController.selectedIndex.value ? 5 : 0,
+                            decoration: BoxDecoration(
+                              color: Theme.of(context).colorScheme.tertiary,
+                              borderRadius: BorderRadius.vertical(
+                                bottom: Radius.circular(10),
+                              ),
+                            ),
+                          ),
+                          SvgPicture.asset(
+                            listIcon[index],
+                            color: index == navBarController.selectedIndex.value
+                                ? Colors.white
+                                : Color(0x50ffffff)
+                          ),
+                          SizedBox(height: 20),
+                        ],
                       ),
                     ),
                   ),
-                  Icon(
-                    listOfIcons[index],
-                    size: 16,
-                    color: index == navBarController.selectedIndex.value
-                        ? Colors.grey
-                        : Colors.white,
-                  ),
-                  SizedBox(height: 20),
-                ],
+                ),
               ),
             ),
           ),
@@ -93,10 +96,4 @@ class home extends StatelessWidget {
       // );
     });
   }
-
-  List<IconData> listOfIcons = [
-    Icons.home_rounded,
-    Icons.search,
-    Icons.library_books,
-  ];
 }

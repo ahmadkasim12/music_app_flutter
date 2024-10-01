@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:get/get.dart';
 import 'package:ui_slicing_assignment/default_theme/textbutton_theme.dart';
 import 'package:ui_slicing_assignment/widgets/WidgetButton.dart';
 
@@ -18,6 +19,7 @@ class WidgetAppbar extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
+      constraints: BoxConstraints(maxWidth: Get.width),
       color: Colors.black,
       child: Padding(
         padding: const EdgeInsets.only(top: 45),
@@ -28,28 +30,30 @@ class WidgetAppbar extends StatelessWidget {
               child: Column(
                 children: [
                   toggleSearchBar
-                      ? Container(
+                      ? ConstrainedBox(
+                        constraints: BoxConstraints(maxHeight: 44),
+                        child: Container(
                           child: Row(
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             children: [
-                              SizedBox(
-                                  width: 280,
-                                  height: 44,
+                              Expanded(
+                                child: Container(
+                                  margin: EdgeInsets.only(right: 10),
                                   child: TextField(
                                     textAlignVertical: TextAlignVertical.center,
-                                    style: Theme.of(context)
-                                        .textTheme
-                                        .bodySmall!
-                                        .copyWith(
-                                          color: Theme.of(context)
-                                              .colorScheme
-                                              .onTertiary,
-                                        ),
+                                    style: Theme.of(context).textTheme.bodySmall!.copyWith(color: Theme.of(context).colorScheme.onTertiary,),
                                     decoration: InputDecoration(
+                                      border: OutlineInputBorder(
+                                        borderRadius: BorderRadius.circular(5.0),
+                                      ),
+                                      contentPadding: EdgeInsets.all(14),
+                                      isCollapsed: true,
                                       filled: true,
                                       fillColor: Colors.white,
                                     ),
-                                  )),
+                                  ),
+                                ),
+                              ),
                               hasButton
                                   ? SizedBox(
                                       width: 44,
@@ -67,7 +71,8 @@ class WidgetAppbar extends StatelessWidget {
                                     )
                             ],
                           ),
-                        )
+                        ),
+                      )
                       : Row(
                           children: [
                             Wrap(

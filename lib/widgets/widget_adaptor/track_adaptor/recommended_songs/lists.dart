@@ -3,10 +3,6 @@ import 'package:flutter/cupertino.dart';
 import '../model.dart';
 
 class suggestionList {
-  final BuildContext context;
-
-  suggestionList({required this.context});
-
   List<TrackModel> get listSongSuggestions => [
         TrackModel(
           albumPath: 'assets/track/Persona 4 Album/album.jpg',

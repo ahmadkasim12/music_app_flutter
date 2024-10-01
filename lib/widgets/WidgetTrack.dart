@@ -4,11 +4,11 @@ import 'package:ui_slicing_assignment/widgets/widget_adaptor/track_adaptor/model
 
 class WidgetTrack extends StatelessWidget {
   final TrackModel trackData;
-  final AlbumModel albumData;
+  final AlbumModel? albumData;
   final bool isAlbum;
   final VoidCallback onTap;
   final bool isListening;
-  const WidgetTrack({super.key, required this.isAlbum, required this.onTap, required this.trackData, required this.isListening, required this.albumData});
+  const WidgetTrack({super.key, required this.isAlbum, required this.onTap, required this.trackData, required this.isListening, this.albumData});
 
   @override
   Widget build(BuildContext context) {
@@ -50,8 +50,13 @@ class WidgetTrack extends StatelessWidget {
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
-                          isAlbum ? Text(albumData.title, overflow: TextOverflow.fade,) : Text(trackData.title, overflow: TextOverflow.fade),
-                          isAlbum ? Text("Album • ${albumData.artist}", style: Theme.of(context).textTheme.bodySmall,) : Text(trackData.subTitle, style: Theme.of(context).textTheme.bodySmall,),
+                          isAlbum && albumData != null
+                              ? Text(albumData!.title,overflow: TextOverflow.fade,)
+                              : Text(trackData.title,overflow: TextOverflow.fade,),
+                          isAlbum && albumData != null
+                              ? Text("Album • ${albumData!.artist}", style: Theme.of(context).textTheme.bodySmall)
+                              : Text(trackData.subTitle, style: Theme.of(context).textTheme.bodySmall,
+                          ),
                         ],
                       ),
                     ),

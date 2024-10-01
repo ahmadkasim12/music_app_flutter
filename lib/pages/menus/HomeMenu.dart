@@ -24,7 +24,7 @@ class HomeMenu extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     List<TrackModel> recommendationTracks =
-        suggestionList(context: context).listSongSuggestions;
+        suggestionList().listSongSuggestions;
     List<AlbumModel> recommendationAlbums =
         AlbumSuggestions().listSongSuggestions;
     final player = AudioPlayer();
@@ -47,7 +47,7 @@ class HomeMenu extends StatelessWidget {
       Scaffold(
           backgroundColor: Colors.transparent,
           appBar: PreferredSize(
-            preferredSize: const Size.fromHeight(60.0),
+            preferredSize: const Size.fromHeight(75.0),
             child: WidgetAppbar(title: "Welcome, user!", hasButton: true, leadingPath: "assets/home.svg", toggleSearchBar: false, genreListButton: false,)
           ),
           body: Stack(children: [
@@ -149,20 +149,17 @@ class HomeMenu extends StatelessWidget {
                           WidgetDivider(title: "Similar album that you might like", hasButton: true,),
                           SizedBox(
                             width: Get.width,
-                            height:
-                                214, // You can adjust this height to your needs
+                            height: 214,
                             child: ListView.builder(
                               scrollDirection: Axis.horizontal,
                               itemCount: recommendationAlbums.length,
-                              shrinkWrap:
-                                  true, // Let it wrap content height-wise
+                              shrinkWrap: true,
                               itemBuilder: (context, index) {
                                 return Obx(() {
                                   return SizedBox(
-                                    // Set a fixed width for each item
-                                    width:
-                                        150, // Adjust this width based on your design
+                                    width: 150,
                                     child: WidgetAlbum(
+                                      albumSearchDisplay: false,
                                       isListening: albumController.isListeningList[index],
                                       onTap: () {
                                         albumController.toggleListening(

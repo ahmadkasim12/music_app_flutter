@@ -62,6 +62,11 @@ flutter:
   assets:
     - assets/
     - assets/track/Persona 4 Album/
+    - assets/track/Mitsukiyo - Blossom Tea Time/
+    - assets/track/sugar sweets symphony/
+    - assets/track/Air Ni Ni/
+    - assets/track/美しい終末サイクル/
+    - assets/track/ネバー・モア-『ペルソナ4』輪廻転生-/
 
   # To add assets to your application, add an assets section, like this:
   # assets:

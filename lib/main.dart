@@ -3,6 +3,7 @@ import 'package:get/get.dart';
 import 'package:ui_slicing_assignment/Controller/Bindings/bindings.dart';
 import 'package:ui_slicing_assignment/Pages/home_navigator.dart';
 import 'package:ui_slicing_assignment/default_theme/textbutton_theme.dart';
+import 'package:ui_slicing_assignment/pages/album_page.dart';
 
 import 'default_theme/color_theme.dart';
 import 'default_theme/text_theme.dart';
@@ -25,6 +26,7 @@ class MyApp extends StatelessWidget {
       initialRoute: '/home_navigator',
       getPages: [
         GetPage(name: '/home_navigator', page: () => home(), binding: myBindings()),
+        GetPage(name: '/album', page: () => AlbumPage(), binding: myBindings()),
       ],
     );
   }

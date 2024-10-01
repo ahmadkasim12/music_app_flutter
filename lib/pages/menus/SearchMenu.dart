@@ -6,7 +6,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
 import 'package:get/get_core/src/get_main.dart';
-import 'package:ui_slicing_assignment/widgets/WidgetAlbum2.dart';
 import 'package:ui_slicing_assignment/widgets/WidgetButton.dart';
 import 'package:ui_slicing_assignment/widgets/WidgetDivider.dart';
 import 'package:ui_slicing_assignment/widgets/WidgetSlightBlur.dart';
@@ -14,6 +13,7 @@ import 'package:ui_slicing_assignment/widgets/WidgetTrack.dart';
 
 import '../../controller/AlbumController.dart';
 import '../../controller/TrackController.dart';
+import '../../widgets/WidgetAlbum.dart';
 import '../../widgets/WidgetAppbar.dart';
 import '../../widgets/widget_adaptor/album_adaptor/model.dart';
 import '../../widgets/widget_adaptor/album_adaptor/recommended_albums/lists.dart';
@@ -27,7 +27,7 @@ class SearchMenu extends StatelessWidget {
   Widget build(BuildContext context) {
     final player = AudioPlayer();
     List<TrackModel> recommendationTracks =
-        suggestionList(context: context).listSongSuggestions;
+        suggestionList().listSongSuggestions;
     List<AlbumModel> recommendationAlbums =
         AlbumSuggestions().listSongSuggestions;
     final AlbumController albumController = Get.put(AlbumController());
@@ -151,11 +151,13 @@ class SearchMenu extends StatelessWidget {
                                         itemCount: recommendationAlbums.length,
                                         itemBuilder: (context, index) {
                                             return Obx((){
-                                              return WidgetAlbum2(
+                                              return WidgetAlbum(
+                                                albumSearchDisplay: true,
                                                 isListening: albumController.isListeningList[index],
-                                                albumData: recommendationAlbums[index],
+                                                modelData: recommendationAlbums[index],
                                                 onTap: () {
                                                   albumController.toggleListening(index, recommendationAlbums.length);
+                                                  Get.toNamed('/album', arguments: {'albumIndex': index});
                                                 },
                                               );
                                             });
